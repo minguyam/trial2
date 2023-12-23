@@ -1,0 +1,202 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    background-color:white;
+}
+
+.navbar {
+    display: flex;
+    background-color: #2196F3;
+    border-color: white;
+}
+
+.navbar a {
+    color: white;
+    padding: 14px 10px; /* Adjusted padding */
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    flex: 25%;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+.navbar a:hover {
+    background-color: white;
+    color: #2196F3;
+}
+
+.contact-banner {
+    background-color: #2196F3;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+#clickable-image {
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    margin-left:30px;
+    margin-top:15px;
+}
+
+#clickable-image:hover {
+    filter: brightness(50%);
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    background-color: #2196F3;
+    
+    padding:20px;
+    margin:30px;
+    margin-top:10px;
+    border-radius: 50px;
+    
+    
+}
+
+.form-column {
+    width: 45%;
+    padding: 10px;
+    margin-top: 15px;
+    border: 5px solid white;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    box-sizing: border-box;
+    margin:10px;
+}
+
+.doctor-form,
+.clinic-form {
+    text-align: center;
+}
+
+.doctor-form label,
+.clinic-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+.doctor-form input,
+.doctor-form textarea,
+.clinic-form input,
+.clinic-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.doctor-form button,
+.clinic-form button {
+    padding: 10px 20px;
+    background-color:#2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s, color 0.3s;
+    margin-left:5px;
+}
+
+.doctor-form button:hover,
+.clinic-form button:hover {
+    filter:brightness(50%)
+}
+
+.saved-info-column {
+    width: 45%;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+.saved-info,
+.saved-clinic-info {
+    padding: 20px;
+    margin-top: 15px;
+    border: 5px solid white;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+}
+
+.footer {
+    background-color: #2196F3;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    margin-top: auto;
+    
+    
+}
+
+.subscribe-form {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.subscribe-input {
+    padding: 10px;
+    width: 60%;
+    border: none;
+    border-radius: 5px;
+}
+
+.subscribe-button {
+    padding: 10px 20px;
+    background-color: white;
+    color: #2196F3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s, color 0.3s;
+    margin-left:5px;
+}
+
+.subscribe-button:hover {
+    
+    filter:brightness(50%)
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.social-icons a:hover {
+    color: darkgray; /* Adjust the color on hover */
+}
+
+@media (max-width: 600px) {
+    .container,.navbar {
+        flex-direction: column;
+        
+    }
+
+    .container{
+        align-items:center;
+    }
+   
+
+    .form-column {
+        width: 80%;
+        margin: 10px;
+    }
+}
