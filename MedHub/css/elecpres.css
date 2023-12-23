@@ -1,0 +1,362 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    background-color:white;
+}
+
+.navbar {
+    display: flex;
+    background-color: #2196F3;
+    border-color: white;
+}
+
+.navbar a {
+    color: white;
+    padding: 14px 10px; 
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    flex: 25%;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+.navbar a:hover {
+    background-color: white;
+    color: #2196F3;
+}
+
+.banner{
+    background-color: #2196F3;
+    margin: 0 auto;
+    padding: 50px;
+    text-align:center;
+    color:white;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: #2196F3;
+    margin-left:50px;
+    margin-right:50px;
+    margin-bottom:100px;
+    padding:30px;
+    border-radius:50px;
+}
+
+.column.middle {
+    flex: 1;
+    padding: 10px;
+}
+
+.column.middle,
+.form-container {
+    flex: 1;
+    
+}
+.rectangle {
+    width: 210mm;
+    height: 297mm;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 16px;
+    position: relative;
+    border: 5px white solid;
+    border-radius:20px;
+    background-color:white;
+   
+}
+
+#clickable-image {
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    margin-left:30px;
+    margin-top:15px;
+}
+
+#clickable-image:hover {
+    filter: brightness(50%);
+}
+
+
+.clinic-info {
+    border-bottom: 10px double black;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.clinic-info {
+    
+    text-align: justify;
+}
+
+.patient-info,
+.drug-info {
+    margin-top: 10px;
+}
+
+.patient-info {
+    text-align: right;
+    margin-right:5px;
+}
+
+.drug-info {
+    text-align: left;
+}
+
+.form-content {
+    text-align: left;
+    margin-top: 20px;
+    padding-top: 50px;
+}
+
+#presLicenseNumberContainer {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-weight:bold;
+    
+}
+
+.form-container {
+    width: 30%;
+    height:30%;
+    padding: 20px;
+    text-align: justify;
+    margin: 50px auto;
+    margin-top:15px;
+    border: 5px solid #2196F3;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-bottom:35px;
+    flex:1;
+}
+
+.form-input {
+margin-bottom: 15px;
+}
+
+.form-input label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+}
+
+.form-input input,
+.form-input select,
+.form-input textarea {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+}
+
+.form-input textarea {
+resize: vertical;
+}
+
+button {
+padding: 10px 20px;
+width:100%;
+background-color: #2196F3;
+color: #FFFFFF;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+font-size: 1rem;
+margin:5px;
+transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+background-color: #1565C0;
+color: #FFFFFF;
+}
+
+
+.print-button {
+    background-color: #4CAF50;
+    color: white;
+    transition: filter 0.3s;
+
+    
+}
+
+
+
+.print-button:hover {
+    background-color: #4CAF50;
+    color: white;
+    filter:brightness(50%);
+    }
+
+.reset-button {
+    background-color: red;
+    color: white;
+    transition: filter 0.3s;
+    
+        
+}
+.reset-button:hover {
+    background-color: red;
+    color: white;
+    filter:brightness(50%);
+    }
+
+
+@media print {
+    * {
+        visibility: hidden;
+    }
+
+    .rectangle, .rectangle * {
+        visibility: visible;
+    }
+
+    .rectangle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 98%;
+        page-break-before: always;
+        border: none;
+    }
+
+    .print-button {
+        display: none;
+    }
+}
+
+.footer {
+    background-color: #2196F3;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    margin-top: auto;
+    
+    
+}
+
+.subscribe-form {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.subscribe-input {
+    padding: 10px;
+    width: 60%;
+    border: none;
+    border-radius: 5px;
+}
+
+.subscribe-button {
+    width: auto; 
+    padding: 10px 20px;
+    background-color: white;
+    color: #2196F3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.3s, color 0.3s;
+    margin-left: 5px;
+    font-weight:normal;
+    font-size: 14px;
+}
+
+
+
+.subscribe-button:hover {
+    color:#000000;
+    background-color:white;
+    
+    filter:brightness(50%)
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.social-icons a:hover {
+    color: darkgray; 
+}
+
+
+@media (max-width: 1350px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .container {
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+
+    .rectangle {
+        width: 100%;
+        max-width: none;
+        margin: 0 auto;
+        
+    }
+
+    .doc-info h1,
+    .doc-info b,
+    .clinic-info p,
+    .form-content ul,
+    .form-input label,
+    .form-input input,
+    .form-input select,
+    .form-input textarea,
+    button {
+        font-size: 14px;
+    }
+
+    .form-container {
+        width: 90%; 
+        max-width: none;
+        margin: 20px auto;
+        padding: 20px;
+        order: 1; 
+    }
+
+    .form-input {
+        margin-bottom: 10px; 
+    }
+
+ 
+    .form-input textarea {
+        height: 100px; 
+        resize: none; 
+    }
+
+    .rx-image-container img {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        float: none;
+        margin: 0;
+    }
+}
+
+

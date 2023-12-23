@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Prescription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <link rel="stylesheet" href="css/elecpres.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="hub.html">HUB</a>
+    </div>
+    <div class="banner">
+        <h1 style="font-size: 50px">Electronic Prescription</h1>
+    </div>
+
+    <a href="hub.html">
+        <img id="clickable-image" src="imgs/back.svg" alt="Clickable Image">
+    </a>
+
+    <div class="container">
+        <div class="column middle">
+            <div class="rectangle">
+                <div class="doc-info">
+                    <!-- Doctor Information -->
+                    <p>
+                        <h1 style="font-size: larger;">DR <span id="presDoctorName"></span>, MD.</h1>
+                        <b><span id="presSpecialty"></span> Specialist</b><br>
+                        <i><span id="presAchievements"></span></i><br>
+
+                    </p>
+                </div>
+
+                <div class="clinic-info">
+                    <!-- Clinic Information -->
+                    <p>
+                        <b>Clinic Address:</b> <span id="clinicAddress"></span><br />
+                        <b>Tel No:</b> <span id="telNumber"></span><br />
+                        <b>Clinic Hours:</b> <span id="clinicHours"></span>
+                    </p>
+                </div>
+
+                <div class="rx-image-container">
+                    <img id="rxImage" src="imgs/rx.jpg" alt="Rx Image" style="width: 100px; margin-top: 10px; margin-left: 10px; float: left;">
+                </div>
+
+                <div id="presLicenseNumberContainer">
+                    <span id="presLicenseNumber"> </span>
+                </div>
+
+                <div class="form-content" id="prescriptionContent">
+                    <!-- Drug info and Patient info containers -->
+                    <div class="patient-info" id="patientInfoBox"></div>
+                    <div class="drug-info" id="drugInfoBox"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-container">
+            <form id="prescriptionForm">
+                <div class="form-input">
+                    <label for="patientName">Patient Name:</label>
+                    <input type="text" id="patientName" name="patientName" required>
+                </div>
+                <div class="form-input">
+                    <label for="prescriptionDate">Prescription Date:</label>
+                    <input type="date" id="prescriptionDate" name="prescriptionDate" required>
+                </div>
+                <div class="form-input">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-input">
+                    <label for="sex">Sex:</label>
+                    <select id="sex" name="sex" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <br />
+                    <button type="button" onclick="editPatientInfo()">Edit Patient Info</button>
+                </div>
+                <div class="form-input">
+                    <label for="drugName">Drug Name:</label>
+                    <input type="text" id="drugName" name="drugName" required>
+                </div>
+                <div class="form-input">
+                    <label for="dosage">Dosage:</label>
+                    <input type="text" id="dosage" name="dosage" required>
+                </div>
+                <div class="form-input">
+                    <label for="instructions">Instructions:</label>
+                    <textarea id="instructions" name="instructions" rows="3" required></textarea>
+                </div>
+
+                <button type="button" onclick="addDrugInfo()">Add Drug</button>
+                <button type="button" onclick="resetDrugInfo()">Reset Drug Info</button>
+                <div class="form-input">
+                    <label for="signature">Signature:</label>
+                    <canvas id="signatureCanvas" class="signature-canvas" width="300" height="150"
+                        style="border: 1px solid #ccc; margin-top: 5px;"></canvas>
+                    <button type="button" onclick="saveSignature()">Save Signature</button>
+                    <button type="button" onclick="clearSignature()">Clear Signature</button>
+                </div>
+
+                <br />
+
+                <button type="button" onclick="printPrescription()" class="print-button">Print Prescription</button>
+                <button type="button" onclick="resetPrescription()" class="reset-button">Reset Prescription</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Subscribe to our newsletter for updates:</p>
+        <form class="subscribe-form" action="#" method="post">
+            <input type="email" class="subscribe-input" placeholder="Your Email Address" name="email" required>
+            <button type="submit" class="subscribe-button">Subscribe</button>
+        </form>
+
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // Load saved doctor and clinic information on page load
+        window.onload = function () {
+            loadSavedDoctorInfo();
+            loadSavedClinicInfo();
+            savePrescription();
+            loadSavedSignature();
+        };
+
+        function loadSavedDoctorInfo() {
+            // Retrieve doctor information from localStorage
+            var savedDoctorInfo = localStorage.getItem('doctorInfo');
+
+            if (savedDoctorInfo) {
+                // Parse the JSON string to an object
+                var doctorInfo = JSON.parse(savedDoctorInfo);
+
+                // Update the content of the elements on the elecpres.html page
+                document.getElementById('presDoctorName').textContent = doctorInfo.doctorName;
+                document.getElementById('presSpecialty').textContent = doctorInfo.specialty;
+                document.getElementById('presAchievements').innerHTML = doctorInfo.achievements.replace(/\n/g, '<br>');
+                document.getElementById('presLicenseNumber').textContent = doctorInfo.licenseNumber;
+            }
+        }
+
+        function loadSavedClinicInfo() {
+            // Retrieve clinic information from localStorage
+            var savedClinicInfo = localStorage.getItem('clinicInfo');
+
+            if (savedClinicInfo) {
+                // Parse the JSON string to an object
+                var clinicInfo = JSON.parse(savedClinicInfo);
+
+                // Update the content of the elements on the elecpres.html page
+                document.getElementById('clinicAddress').textContent = clinicInfo.clinicAddress;
+                document.getElementById('telNumber').textContent = clinicInfo.telNumber;
+                document.getElementById('clinicHours').textContent = clinicInfo.clinicHours;
+            }
+        }
+
+        let drugNum = 1; // Initialize drug number
+
+        function editPatientInfo() {
+            const patientName = document.getElementById('patientName').value;
+            const age = document.getElementById('age').value;
+            const sex = document.getElementById('sex').value;
+            const prescriptionDate = document.getElementById('prescriptionDate').value;
+
+            // Update patient information box
+            document.getElementById('patientInfoBox').innerHTML = `
+                    <b><span>Patient Name:</b> ${patientName}</span><br />
+                    <b><span>Age:</b> ${age}</span> <br />
+                    <b><span>Sex:</b> ${sex}</span><br />
+                    <b><span>Date:</b> ${prescriptionDate}</span>
+                `;
+
+            // Clear form input fields
+            document.getElementById('patientName').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('sex').value = '';
+            document.getElementById('prescriptionDate').value = '';
+        }
+
+        function addDrugInfo() {
+            // Get form values for the new drug before resetting the form fields
+            const drugName = document.getElementById('drugName').value;
+            const dosage = document.getElementById('dosage').value;
+            const instructions = document.getElementById('instructions').value;
+
+            // Reset all form fields
+            document.getElementById('drugName').value = '';
+            document.getElementById('dosage').value = '';
+            document.getElementById('instructions').value = '';
+
+            // Check if the current drugNum is less than or equal to 10
+            if (drugNum <= 10) {
+                // Create prescription content for the new drug
+                const drugInfoContent = `
+                    <b>${drugNum}.${drugName}</b> <br />
+                    <b>Dosage:</b> ${dosage}<br />
+                    <b>Instructions:</b> ${instructions}<br />
+                    <br />
+                    <br />
+                `;
+
+                // Append the new drug info to the existing content in the drug info box
+                document.getElementById('drugInfoBox').innerHTML += drugInfoContent;
+
+                // Increment drug number for the next drug
+                drugNum++;
+
+                if (drugNum > 5) {
+                    // Move the drug info to the right
+                    document.getElementById('drugInfoBox').style.columnCount = 2;
+                    document.getElementById('drugInfoBox').style.columnGap = '20px';
+                }
+            } else {
+                // Alert the user when trying to add more than 10 drugs
+                alert('Maximum of 10 drugs.');
+            }
+        }
+
+        function resetDrugInfo() {
+            // Remove all child elements from the drug info box
+            const drugInfoBox = document.getElementById('drugInfoBox');
+            while (drugInfoBox.firstChild) {
+                drugInfoBox.removeChild(drugInfoBox.firstChild);
+            }
+
+            // Reset drug number to 1
+            drugNum = 1;
+        }
+
+        // Initialize Signature Pad
+        var signaturePad = new SignaturePad(document.getElementById('signatureCanvas'), {
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            penColor: 'black'
+        });
+
+        function savePrescription() {
+            // Get form values
+            const presLicenseNumber = document.getElementById('presLicenseNumber').textContent;
+            const doctorName = document.getElementById('presDoctorName').textContent;
+
+            // Save presLicenseNumber to localStorage
+            localStorage.setItem('presLicenseNumber', presLicenseNumber);
+
+            const signatureContainer = document.getElementById('presLicenseNumberContainer');
+
+            // Clear existing content in the container
+            signatureContainer.innerHTML = '';
+
+            // Create a container for the signature
+            const signatureImageContainer = document.createElement('div');
+            signatureImageContainer.innerHTML = '<img id="signatureImage" style="width: 200px; margin-top: 0px;" />';
+            signatureContainer.appendChild(signatureImageContainer);
+
+            // Load the saved signature
+            loadSavedSignature();
+
+            // Create container for the doctor's name and Lic No.
+            const doctorAndLicContainer = document.createElement('div');
+            doctorAndLicContainer.innerHTML = `<span style="border-bottom: 3px solid black; ">${doctorName}. M.D.</span><br />Lic No. ${presLicenseNumber}`;
+            doctorAndLicContainer.style.textAlign = 'center'; // Center-align the content
+
+            // Append the doctor's name and Lic No. to the main container
+            signatureContainer.appendChild(doctorAndLicContainer);
+        }
+
+        function saveSignature() {
+            const signatureImage = document.getElementById('signatureImage');
+            const dataURL = signaturePad.toDataURL(); // Get data URL from Signature Pad
+            signatureImage.src = dataURL;
+
+            // Save the signature to localStorage
+            localStorage.setItem('signature', dataURL);
+        }
+
+        function loadSavedSignature() {
+            const signatureImage = document.getElementById('signatureImage');
+            const savedSignature = localStorage.getItem('signature');
+
+            if (savedSignature) {
+                signatureImage.src = savedSignature;
+            }
+        }
+
+        function clearSignature() {
+            // Clear the Signature Pad
+            signaturePad.clear();
+
+            // Clear the saved signature
+            localStorage.removeItem('signature');
+        }
+
+        function resetPrescription() {
+            // Reset patient information
+            document.getElementById('patientInfoBox').innerHTML = '';
+
+            // Reset form input fields for patient information
+            document.getElementById('patientName').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('sex').value = '';
+            document.getElementById('prescriptionDate').value = '';
+
+            // Reset drug information
+            document.getElementById('drugInfoBox').innerHTML = '';
+
+            // Reset drug number to 1
+            drugNum = 1;
+
+            // Reset form input fields for drug information
+            document.getElementById('drugName').value = '';
+            document.getElementById('dosage').value = '';
+            document.getElementById('instructions').value = '';
+        }
+
+        function printPrescription() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>
